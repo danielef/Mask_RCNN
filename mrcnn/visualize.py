@@ -167,15 +167,7 @@ def display_instances(image, boxes, masks, class_ids, class_names,
     if auto_show and plt_show:
         plt.show()
     
-    buffer_ = StringIO()
-    plt.savefig( buffer_, format = "jpg", bbox_inches = 'tight', pad_inches = 0 )
-    buffer_.seek(0)
-
-    image = PIL.Image.open( buffer_ )
-
-    ar = np.asarray(image)
-
-    return ar
+    return fig, ax
 
 
 def display_differences(image,
