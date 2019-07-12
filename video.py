@@ -113,7 +113,7 @@ while(cap.isOpened()):
                                          class_names, 
                                          r['scores'],
                                          colors=colors, plt_show=False)
-
+    print(render)
     out.write(render)
     ready += 1
   # Break the loop
