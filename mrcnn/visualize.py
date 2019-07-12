@@ -169,6 +169,7 @@ def display_instances(image, boxes, masks, class_ids, class_names,
     fig.canvas.draw()
     data = np.fromstring(fig.canvas.tostring_rgb(), dtype=np.uint8, sep='')
     data = data.reshape(fig.canvas.get_width_height()[::-1] + (3,))
+    
     return data
 
 
