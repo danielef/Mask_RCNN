@@ -115,6 +115,11 @@ while(cap.isOpened()):
                                          colors=colors, plt_show=False)
     render = cv2.cvtColor(render, cv2.COLOR_RGB2BGR)
     out.write(render)
+    cv2.imshow(video, render)
+    if cv2.waitKey(100) == 0x1b:
+            print('ESC pressed. Exiting ...')
+            break
+
     ready += 1
   # Break the loop
   else: 
