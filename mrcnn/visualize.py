@@ -167,10 +167,8 @@ def display_instances(image, boxes, masks, class_ids, class_names,
         plt.show()
 
     fig.canvas.draw()
-    data = np.fromstring(fig.canvas.tostring_rgb(), dtype=np.uint8, sep='')
-    data = data.reshape(fig.canvas.get_width_height()[::-1] + (3,))
-    
-    return data
+     
+    return np.array(fig.canvas.renderer.buffer_rgb())
 
 
 def display_differences(image,
