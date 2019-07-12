@@ -19,7 +19,7 @@ import matplotlib.pyplot as plt
 from matplotlib import patches,  lines
 from matplotlib.patches import Polygon
 import IPython.display
-from cStringIO import StringIO
+from io import StringIO
 
 # Root directory of the project
 ROOT_DIR = os.path.abspath("../")
