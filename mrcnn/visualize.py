@@ -19,6 +19,7 @@ import matplotlib.pyplot as plt
 from matplotlib import patches,  lines
 from matplotlib.patches import Polygon
 import IPython.display
+from cStringIO import StringIO
 
 # Root directory of the project
 ROOT_DIR = os.path.abspath("../")
@@ -162,11 +163,19 @@ def display_instances(image, boxes, masks, class_ids, class_names,
             verts = np.fliplr(verts) - 1
             p = Polygon(verts, facecolor="none", edgecolor=color)
             ax.add_patch(p)
-    graph =ax.imshow(masked_image.astype(np.uint8))
+    ax.imshow(masked_image.astype(np.uint8))
     if auto_show and plt_show:
         plt.show()
     
-    return graph
+    buffer_ = StringIO()
+    plt.savefig( buffer_, format = "jpg", bbox_inches = 'tight', pad_inches = 0 )
+    buffer_.seek(0)
+
+    image = PIL.Image.open( buffer_ )
+
+    ar = np.asarray(image)
+
+    return ar
 
 
 def display_differences(image,
