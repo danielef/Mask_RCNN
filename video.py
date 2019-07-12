@@ -83,20 +83,20 @@ width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
 height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
 length = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
 fps = cap.get(cv2.CAP_PROP_FPS)
+print('size: {}x{}, fps: {}, lenght: {}'.format(width, height, fps, length))
 
 # Video Output
-outfile = '{}-coco.avi'.format(video[:-4])
-print('Writing video: {}'.format(outfile))
 fourcc = cv2.VideoWriter_fourcc(*'XVID')
-out = cv2.VideoWriter(outfile, fourcc, fps, (int(width), int(height)))
-ready = 1
+out = cv2.VideoWriter('{}-coco.avi'.format(video[:-4]), fourcc, fps, (int(width), int(height)))
+ready = 0
 colors = visualize.random_colors(80)
+colors[1] = (255/255, 0/255, 0/255)
+colors[3] = (255/255, 69/255, 0/255)
+colors[6] = (0/255, 255/255, 0/255)
+colors[10] = (0/255, 0/255, 255/255)
 
 while(cap.isOpened()):
   # Capture frame-by-frame
-
-  print('rendering:\t{} of {} frames'.format(ready, length))
-
   ret, image = cap.read()
   if ret == True:
  
@@ -106,29 +106,30 @@ while(cap.isOpened()):
     results = model.detect([image], verbose=1)
 
     r = results[0]
-    render = visualize.display_instances(image, 
+    fig, ax = visualize.display_instances(image, 
                                          r['rois'], 
                                          r['masks'], 
                                          r['class_ids'], 
                                          class_names, 
                                          r['scores'],
-                                         colors=colors, plt_show=False)
-    print(render)
-
-    render = cv2.cvtColor(render, cv2.COLOR_RGB2BGR)
+                                         colors=colors, plt_show=False, figsize=(34.5, 34.5))
     
-    out.write(render)
-    cv2.imshow(video, render)
-    if cv2.waitKey(100) == 0x1b:
-            print('ESC pressed. Exiting ...')
-            break
-
-    ready += 1
+    fig.savefig('/tmp/render.jpg', format='jpeg', dpi=fig.dpi, pad_inches=0, quality=100)
+    data = cv2.imread('/tmp/render.jpg')
+    y = 694# 432
+    h = 1080
+    x = 311
+    w = 1920
+    crop_img = data[y:y+h, x:x+w]
+    out.write(crop_img)
+    
+    if ready < 50:
+        ready += 1
+    else:
+        break
   # Break the loop
   else: 
     break
 
-print('Releasing resources ...')
 out.release()
 cap.release()
-print('DONE')
