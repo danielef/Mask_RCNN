@@ -113,9 +113,10 @@ while(cap.isOpened()):
                                          class_names, 
                                          r['scores'],
                                          colors=colors, plt_show=False)
+    print(render)
 
     render = cv2.cvtColor(render, cv2.COLOR_RGB2BGR)
-    print(render)
+    
     out.write(render)
     cv2.imshow(video, render)
     if cv2.waitKey(100) == 0x1b:
