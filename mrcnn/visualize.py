@@ -165,8 +165,10 @@ def display_instances(image, boxes, masks, class_ids, class_names,
     ax.imshow(masked_image.astype(np.uint8))
     if auto_show and plt_show:
         plt.show()
-    fig.savefig('/tmp/render.jpg')
-    plt.close(fig)
+
+    data = np.fromstring(fig.canvas.tostring_rgb(), dtype=np.uint8, sep='')
+    data = data.reshape(fig.canvas.get_width_height()[::-1] + (3,))
+    return data
 
 
 def display_differences(image,

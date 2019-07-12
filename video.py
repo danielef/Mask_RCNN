@@ -106,15 +106,14 @@ while(cap.isOpened()):
     results = model.detect([image], verbose=1)
 
     r = results[0]
-    visualize.display_instances(image, 
-                                r['rois'], 
-                                r['masks'], 
-                                r['class_ids'], 
-                                class_names, 
-                                r['scores'],
-                                colors=colors, plt_show=False)
+    render = visualize.display_instances(image, 
+                                         r['rois'], 
+                                         r['masks'], 
+                                         r['class_ids'], 
+                                         class_names, 
+                                         r['scores'],
+                                         colors=colors, plt_show=False)
 
-    render = cv2.imread('/tmp/render.jpg')
     out.write(render)
     ready += 1
   # Break the loop
