@@ -113,7 +113,7 @@ while(cap.isOpened()):
                                 class_names, 
                                 r['scores'],
                                 colors=colors, plt_show=False)
-    render = imread('/tmp/render.jpg')
+    render = cv2.imread('/tmp/render.jpg')
     render = cv2.cvtColor(render, cv2.COLOR_RGB2BGR)
     out.write(render)
     cv2.imshow(video, render)
