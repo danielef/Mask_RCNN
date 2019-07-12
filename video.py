@@ -121,6 +121,7 @@ while(cap.isOpened()):
     x = 311
     w = 1920
     crop_img = data[y:y+h, x:x+w]
+    cv2.imwrite('/tmp/render.jpg', crop_img)
     out.write(crop_img)
     
     if ready < 50:
