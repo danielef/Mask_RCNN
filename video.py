@@ -106,14 +106,14 @@ while(cap.isOpened()):
     results = model.detect([image], verbose=1)
 
     r = results[0]
-    render = visualize.display_instances(image, 
-                                         r['rois'], 
-                                         r['masks'], 
-                                         r['class_ids'], 
-                                         class_names, 
-                                         r['scores'],
-                                         colors=colors, plt_show=False)
-    render = cv2.cvtColor(render, cv2.COLOR_RGB2BGR)
+    visualize.display_instances(image, 
+                                r['rois'], 
+                                r['masks'], 
+                                r['class_ids'], 
+                                class_names, 
+                                r['scores'],
+                                colors=colors, plt_show=False)
+    render = cv2.imread('/tmp/render.jpg')
     out.write(render)
     cv2.imshow(video, render)
     if cv2.waitKey(100) == 0x1b:
