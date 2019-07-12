@@ -148,7 +148,7 @@ def display_instances(image, boxes, masks, class_ids, class_names,
                 color='w', size=11, backgroundcolor="none")
 
         # Mask
-        score = score if score is not None else 0.5
+        score = score/2 if score is not None else 0.2
         mask = masks[:, :, i]
         if show_mask:
             masked_image = apply_mask(masked_image, mask, color, alpha=score)
