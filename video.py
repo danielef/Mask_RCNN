@@ -113,13 +113,9 @@ while(cap.isOpened()):
                                 class_names, 
                                 r['scores'],
                                 colors=colors, plt_show=False)
+
     render = cv2.imread('/tmp/render.jpg')
     out.write(render)
-    cv2.imshow(video, render)
-    if cv2.waitKey(100) == 0x1b:
-            print('ESC pressed. Exiting ...')
-            break
-
     ready += 1
   # Break the loop
   else: 
