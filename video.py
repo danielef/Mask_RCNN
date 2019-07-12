@@ -112,7 +112,7 @@ while(cap.isOpened()):
                                          r['class_ids'], 
                                          class_names, 
                                          r['scores'],
-                                         colors=colors)
+                                         colors=colors, plt_show=False)
     render = cv2.cvtColor(render, cv2.COLOR_RGB2BGR)
     out.write(render)
     ready += 1
